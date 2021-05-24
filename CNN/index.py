@@ -1,3 +1,18 @@
-import tensorflow as tf
-from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)
+from tensorflow.keras import datasets
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+vocab_size = 10000
+(X_train, y_train), (X_test, y_test) = datasets.imdb.load_data(num_words = vocab_size)
+
+print(X_train[:5])
+
+# 패딩
+max_len = 200
+X_train = pad_sequences(X_train, maxlen = max_len)
+X_test = pad_sequences(X_test, maxlen = max_len)
+
+# 패딩되었는지 확인
+print('X_train의 크기(shape) :', X_train.shape)
+print('X_test의 크기(shape) :', X_test.shape)
+
+print(y_train)
