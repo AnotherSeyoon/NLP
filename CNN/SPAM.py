@@ -2,6 +2,7 @@ import urllib.request
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+from tensorflow.keras.preprocessing import sequence
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
@@ -32,5 +33,10 @@ data['v1'].value_counts().plot(kind = 'bar')
 
 X_data = data['v2']
 y_data = data['v1']
-print('메일 본문의 개수: {}'.format(len(X_data)))
-print('레이블의 개수: {}'.format(len(y_data)))
+# print('메일 본문의 개수: {}'.format(len(X_data)))
+# print('레이블의 개수: {}'.format(len(y_data)))
+
+vocab_size = 1000
+tokenizer = Tokenizer(num_words = vocab_size)
+tokenizer.fit_on_texts(X_data) # X의 각 항에 토큰화
+sequences = tokenizer.texts_to_sequences(X_data) # 단어의 숫자값, 인덱스로 변환하여 저장
