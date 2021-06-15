@@ -56,3 +56,7 @@ plt.show()
 
 model = Word2Vec(sentences = tokenized_data, size = 100, window = 5, min_count = 5, workers = 4, sg = 0)
 print(model.wv.vectors.shape)
+
+print(model.wv.most_similar("최민식"))
+
+print(model.wv.most_similar("히어로"))
