@@ -9,7 +9,7 @@ import re
 from nltk.tokenize import word_tokenize, sent_tokenize
 
 # 데이터 다운로드
-# urllib.request.urlretrieve("https://raw.githubusercontent.com/GaoleMeng/RNN-and-FFNN-textClassification/master/ted_en-20160408.xml", filename="ted_en-20160408.xml")
+urllib.request.urlretrieve("https://raw.githubusercontent.com/GaoleMeng/RNN-and-FFNN-textClassification/master/ted_en-20160408.xml", filename="ted_en-20160408.xml")
 
 # 파일을 읽기모드로 열기
 targetXML = open('ted_en-20160408.xml', 'r', encoding = 'UTF8')
@@ -24,7 +24,6 @@ content_text = re.sub(r'\([^)]*\)', '', parse_text)
 
 # 문장을열을 여러개의 조각(토큰)들로 쪼갬
 sent_text = sent_tokenize(content_text)
-
 
 normalized_text = []
 for string in sent_text:
@@ -46,11 +45,13 @@ for line in result[:3]:
 
 from gensim.models import Word2Vec
 '''
-size = 워드 벡터의 특징 값, 임베딩 된 벡터의 차원
-window = 컨텍스트 윈도우 크기
+size = 워드 벡터의 특징 값(임베딩 된 벡터의 차원)
+window = 컨텍스트(문맥) 윈도우 크기
 min_count = 단어 최소 빈도 수 제한 (빈도가 적은 단어들은 학습 X)
 workers = 학습을 위한 프로세스 수
 sg = 0은 CBOW, 1은 Skip-gram
+CBOW : 중앙 단어의 앞 뒤 단어를 고려해서 중앙에 있는 단어를 예츠하는 방법
+Skip-gram : 중앙에 있는 단어를 통해서 중앙 단어의 앞 뒤 단어들을 예측하는 방법
 '''
 model = Word2Vec(sentences = result, size = 100, window = 5, min_count = 5, workers = 4, sg = 0)
 
